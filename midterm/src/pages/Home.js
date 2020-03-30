@@ -45,6 +45,16 @@ function Home() {
     }, [history]);
 
     useEffect(() => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokeColor.toLowerCase()}`)
+          .then(function (response) {
+            // handle success
+            setColorData(response.data);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+
         if (pokeColor === "blue") {
                setPokeRGB('51, 153, 255');
            } else if (pokeColor === "brown") {
@@ -66,16 +76,6 @@ function Home() {
            } else {
                setPokeRGB('0, 0, 0');
            }
-
-        axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokeColor.toLowerCase()}`)
-          .then(function (response) {
-            // handle success
-            setColorData(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
 
     }, [pokeColor]);
 
@@ -129,6 +129,17 @@ function Home() {
     }, [pokemonDescriptionData]);
 
     useEffect(()=> {
+
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`)
+          .then(function (response) {
+            // handle success
+            setPokemonStatData(response.data);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+
         if (pokemonID.length === 3) {
             setMonth(pokemonID.toString().charAt(0));
             setPokemonIDTens(pokemonID.toString().substr(1,2));
@@ -145,29 +156,9 @@ function Home() {
             }
         }
 
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`)
-          .then(function (response) {
-            // handle success
-            setPokemonStatData(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
-
     }, [pokemonID]);
 
     useEffect(()=> {
-        console.log(pokemonID, "id", month, "month", pokemonIDTens, "pokeIDtens");
-        axios.get(`https://holidayapi.com/v1/holidays?pretty&key=${defaultKey}&country=US&year=2019&month=${month}`)
-            .then(function (response) {
-                // handle success
-                setHolidayData(response.data);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-          });
 
         if (pokemonStatData.sprites) {
             setSpriteURL(pokemonStatData.sprites.front_default);
@@ -183,8 +174,20 @@ function Home() {
             setPokemonWeight(weight);
         }
 
-
     }, [pokemonStatData]);
+
+    useEffect(()=> {
+        console.log(pokemonID, "id", month, "month", pokemonIDTens, "pokeIDtens");
+        axios.get(`https://holidayapi.com/v1/holidays?pretty&key=${defaultKey}&country=US&year=2019&month=${month}`)
+            .then(function (response) {
+                // handle success
+                setHolidayData(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+          });
+    }, [month]);
 
 
     useEffect(()=> {
