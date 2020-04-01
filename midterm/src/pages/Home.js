@@ -11,6 +11,11 @@ function getRandomInt(min, max) {
 }
 
 function Home() {
+    const [adviceData, setAdviceData] = useState('');
+    const [advice, setAdvice] = useState('');
+    const [foodData, setFoodData] = useState({});
+    const [foodName, setFoodName] = useState('');
+
     const [holidayData, setHolidayData] = useState({});
     const [month, setMonth] = useState('');
     const [pokemonIDTens, setPokemonIDTens] = useState('');
@@ -45,42 +50,62 @@ function Home() {
     }, [history]);
 
     useEffect(() => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokeColor.toLowerCase()}`)
-          .then(function (response) {
-            // handle success
-            setColorData(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
+        if (pokeColor !== '') {
+            axios.get(`https://pokeapi.co/api/v2/pokemon-color/${pokeColor.toLowerCase()}`)
+                .then(function (response) {
+                    // handle success
+                    setColorData(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
 
-        if (pokeColor === "blue") {
-               setPokeRGB('51, 153, 255');
-           } else if (pokeColor === "brown") {
-               setPokeRGB('153, 76, 0');
-           } else if (pokeColor === "gray") {
-               setPokeRGB('128, 128, 128');
-           } else if (pokeColor === "green") {
-               setPokeRGB('0, 255, 128');
-           } else if (pokeColor === "pink") {
-               setPokeRGB('255, 51, 153');
-           } else if (pokeColor === "purple") {
-               setPokeRGB('153, 51, 255');
-           } else if (pokeColor === "red") {
-               setPokeRGB('255, 50, 50');
-           } else if (pokeColor === "white") {
-               setPokeRGB('255, 255, 255');
-           } else if (pokeColor === "yellow") {
-               setPokeRGB('255, 255, 50');
-           } else {
-               setPokeRGB('0, 0, 0');
-           }
+            axios.get(`https://www.themealdb.com/api/json/v1/1/random.php`)
+                .then(function (response) {
+                    // handle success
+                    setFoodData(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
 
+        axios.get(`https://api.adviceslip.com/advice`)
+                .then(function (response) {
+                    // handle success
+                    setAdviceData(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+
+            if (pokeColor === "blue") {
+                setPokeRGB('51, 153, 255');
+            } else if (pokeColor === "brown") {
+                setPokeRGB('153, 76, 0');
+            } else if (pokeColor === "gray") {
+                setPokeRGB('128, 128, 128');
+            } else if (pokeColor === "green") {
+                setPokeRGB('0, 255, 128');
+            } else if (pokeColor === "pink") {
+                setPokeRGB('255, 51, 153');
+            } else if (pokeColor === "purple") {
+                setPokeRGB('153, 51, 255');
+            } else if (pokeColor === "red") {
+                setPokeRGB('255, 50, 50');
+            } else if (pokeColor === "white") {
+                setPokeRGB('255, 255, 255');
+            } else if (pokeColor === "yellow") {
+                setPokeRGB('255, 255, 50');
+            } else {
+                setPokeRGB('0, 0, 0');
+            }
+        }
     }, [pokeColor]);
 
     useEffect(() => {
-        // console.log(colorData, "color data new");
 
         if (colorData.pokemon_species) {
             let pokeArray = colorData.pokemon_species;
@@ -104,7 +129,6 @@ function Home() {
     }, [pokemonURL]);
 
     useEffect(()=> {
-        // console.log(pokemonDescriptionData, "pokemon desc");
 
         if (pokemonDescriptionData.name) {
             setPokemonName(pokemonDescriptionData.name);
@@ -127,6 +151,18 @@ function Home() {
         }
 
     }, [pokemonDescriptionData]);
+
+    useEffect(() => {
+        if (foodData.meals) {
+            setFoodName(foodData.meals[0].strMeal);
+        }
+    }, [foodData]);
+
+    useEffect(() => {
+        if (adviceData) {
+            setAdvice(adviceData.slip.advice);
+        }
+    }, [adviceData]);
 
     useEffect(()=> {
 
@@ -157,6 +193,7 @@ function Home() {
         }
 
     }, [pokemonID]);
+
 
     useEffect(()=> {
 
@@ -216,9 +253,11 @@ function Home() {
             }
         }
 
-        // console.log(pokemonDescriptionData, "pokemonURL");
-        // console.log(pokemonStatData, "pokemonName");
     }, [holidayData]);
+
+    if (pokeColor === '') {
+        return null;
+    }
 
     return (
         <div className="Home">
@@ -236,10 +275,24 @@ function Home() {
                 <p>{pokemonFlavor}</p>
             </div>
 
-            <div className="HolidayData">
-                <h1>One of the human holidays <strong>{pokemonName}</strong> is most intrigued by is {holiday}.</h1>
-                <p>Last year, it was observed on {holidayDate}.</p>
+            <div className="Timeline">
+                <h1><strong>{pokemonName}</strong>'s Profile</h1>
+
+                <div className="TextField">
+                    <form>
+                        <textarea name="message" placeholder="Write a message on their wall!"/>
+                    </form>
+                </div>
+
+                <div className="PokePosts">
+                    <h2>Recent status updates</h2>
+                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>today someone fed me this food called {foodName}! it was kind of nasty ngl, but i still ate it :/</p>
+                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>humans are so intriguing! did u know that {holiday} is a thing??? apparently it was celebrated on {holidayDate} last year, but i don't really understand it tbh...</p>
+                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>a wise pokemon once told me: "{advice}" ...i think about that a lot...</p>
+                </div>
+
             </div>
+
         </div>
     );
 

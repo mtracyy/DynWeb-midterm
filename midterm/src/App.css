@@ -1,3 +1,54 @@
+a.button{
+    background-color: rgba(0, 0, 0, 0.2);
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.1em 0.1em 0;
+    border:0.1em solid rgba(255,255,255, 0.1);
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform: lowercase;
+    font-size: 15px;
+    color:#FFFFFF;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.4s ease;
+}
+a.button:hover{
+    border-color: rgba(255,255,255,0);
+}
+
+a.b1:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+a.b2:hover{
+    background-color: rgba(51, 153, 255, 0.5);
+}
+a.b3:hover{
+    background-color: rgba(153, 76, 0, 0.5);
+}
+a.b4:hover{
+    background-color: rgba(128, 128, 128, 0.7);
+}
+a.b5:hover{
+    background-color: rgba(0, 255, 128, 0.5);
+}
+a.b6:hover{
+    background-color: rgba(255, 51, 152, 0.5);
+}
+a.b7:hover{
+    background-color: rgba(153, 51, 255, 0.5);
+}
+a.b8:hover{
+    background-color: rgba(255, 50, 50, 0.5);
+}
+a.b9:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+a.b10:hover{
+    background-color: rgba(255, 255, 50, 0.5);
+}
+
 .ChooseColor {
     /*display: inline;*/
     align-content: center;
@@ -5,29 +56,33 @@
     max-height: 100px;
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     flex-direction: column;
     justify-content: center;
     padding: 25px;
     color: white;
 }
 
+.ChooseColor h2 {
+    font-family:'Roboto',sans-serif;
+    font-size: 35px;
+    margin: 10px 0;
+}
+
 .ColorOptions {
     display: flex;
     /*max-width: 350px;*/
     flex-wrap: wrap;
-    justify-content: center;
+    /*justify-content: space-between;*/
 }
 
 .ColorOptions a {
-    /*border-bottom: 1px solid transparent;*/
     color: white;
     display: block;
-    font-size: 18px;
     font-weight: 500;
-    padding: 5px 10px;
+    margin: 0 10px;
+    padding: 10px 15px;
     text-decoration: none;
-    /*transition: border-bottom 500ms ease;*/
 }
 
 .SiteWrapper {
@@ -60,7 +115,7 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    margin: 50px 0 0 50px;
+    margin: 50px 0 0 60px;
     max-width: 250px;
     order: 1;
     padding: 20px;
@@ -77,21 +132,47 @@
     flex-shrink: 0;
 }
 
-.HolidayData {
+.PokePosts p {
+    border-radius: 1em;
+    margin-left: 30px;
+    padding: 10px;
+}
+
+.PokePosts h2 {
+    padding-top: 20px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.Timeline {
     display: flex;
     flex-direction: column;
-    /*height: 100%;*/
     max-height: fit-content;
-    justify-content: flex-end;
+    height: 100%;
+    justify-content: flex-start;
     order: -1;
-    /*padding-top: 80px;*/
+    margin-top: 40px;
     width: 550px;
 }
 
-.HolidayData h1 {
-    font-size: 25px;
+.Timeline h1 {
+    font-size: 30px;
 }
 
-.HolidayData strong {
+.Timeline strong {
     text-transform: capitalize;
+}
+
+.TextField textarea {
+    color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 50px;
+    outline: none;
+    padding: 12px 20px;
+    resize: none;
+    width: 100%;
 }
