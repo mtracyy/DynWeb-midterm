@@ -1,16 +1,17 @@
 a.button{
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
+    color:#FFFFFF;
     display:inline-block;
     padding:0.3em 1.2em;
     margin:0 0.1em 0.1em 0;
-    border:0.1em solid rgba(255,255,255, 0.1);
+    border:0.1em solid rgba(255,255,255, 0.2);
     border-radius:2em;
     box-sizing: border-box;
     text-decoration:none;
     text-transform: lowercase;
-    font-size: 15px;
-    color:#FFFFFF;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-weight: lighter;
     text-align:center;
     transition: all 0.4s ease;
 }
@@ -49,14 +50,31 @@ a.b10:hover{
     background-color: rgba(255, 255, 50, 0.5);
 }
 
+.buttons button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border:0.1em solid rgba(255,255,255, 0.3);
+    border-radius: 2em;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 10px;
+    margin: 0 5px;
+    opacity: 0.6;
+    outline: none;
+    transition: all .2s ease-in-out;
+}
+
+.buttons button:hover {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    transition: .3s;
+    transform: scale(1.1);
+}
+
 .ChooseColor {
-    /*display: inline;*/
     align-content: center;
     height: 100%;
     max-height: 100px;
     align-items: center;
     display: flex;
-    /*flex-wrap: wrap;*/
     flex-direction: column;
     justify-content: center;
     padding: 25px;
@@ -71,9 +89,7 @@ a.b10:hover{
 
 .ColorOptions {
     display: flex;
-    /*max-width: 350px;*/
     flex-wrap: wrap;
-    /*justify-content: space-between;*/
 }
 
 .ColorOptions a {
@@ -92,14 +108,12 @@ a.b10:hover{
     background-blend-mode: hue;
     background-position: center center;
     display: block;
-    /*flex-direction: column;*/
     height: 100vh;
     max-height: 100vh;
     margin: 0 0;
     padding: 0;
     max-width: 100vw;
     width: 100vw;
-    /*flex-wrap: wrap;*/
 }
 
 .Home {
@@ -115,8 +129,8 @@ a.b10:hover{
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    margin: 50px 0 0 60px;
-    max-width: 250px;
+    margin: 80px 0 0 70px;
+    max-width: 255px;
     order: 1;
     padding: 20px;
     width: 100%;
@@ -128,14 +142,36 @@ a.b10:hover{
     text-transform: uppercase;
 }
 
+.PokemonInfo h1 strong {
+    font-size: 15px;
+    font-weight: lighter;
+}
+
 .PokemonInfo .image {
     flex-shrink: 0;
 }
 
+
 .PokePosts p {
-    border-radius: 1em;
-    margin-left: 30px;
+    border-radius: .5em;
     padding: 10px;
+    margin-left: 30px;
+    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+.post{
+    justify-content: flex-end;
+    border-radius: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.post p strong{
+    text-transform: lowercase;
+    font-weight: normal;
 }
 
 .PokePosts h2 {
@@ -151,7 +187,7 @@ a.b10:hover{
     height: 100%;
     justify-content: flex-start;
     order: -1;
-    margin-top: 40px;
+    margin-top: 30px;
     width: 550px;
 }
 
@@ -166,8 +202,8 @@ a.b10:hover{
 .TextField textarea {
     color: rgba(255, 255, 255, 0.3);
     background-color: rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     box-sizing: border-box;
     font-size: 16px;
     height: 50px;
@@ -175,4 +211,9 @@ a.b10:hover{
     padding: 12px 20px;
     resize: none;
     width: 100%;
+}
+
+.stats {
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
 }

@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
+
 import { useHistory } from 'react-router-dom';
 
 //API Key
@@ -15,6 +18,7 @@ function Home() {
     const [advice, setAdvice] = useState('');
     const [foodData, setFoodData] = useState({});
     const [foodName, setFoodName] = useState('');
+    const [dislikedFood, setDislikedFood] = useState('');
 
     const [holidayData, setHolidayData] = useState({});
     const [month, setMonth] = useState('');
@@ -155,7 +159,9 @@ function Home() {
     useEffect(() => {
         if (foodData.meals) {
             setFoodName(foodData.meals[0].strMeal);
+            setDislikedFood(foodData.meals[0].strIngredient1);
         }
+
     }, [foodData]);
 
     useEffect(() => {
@@ -167,14 +173,14 @@ function Home() {
     useEffect(()=> {
 
         axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`)
-          .then(function (response) {
-            // handle success
-            setPokemonStatData(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
+            .then(function (response) {
+                // handle success
+                setPokemonStatData(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            });
 
         if (pokemonID.length === 3) {
             setMonth(pokemonID.toString().charAt(0));
@@ -193,6 +199,7 @@ function Home() {
         }
 
     }, [pokemonID]);
+
 
 
     useEffect(()=> {
@@ -214,7 +221,6 @@ function Home() {
     }, [pokemonStatData]);
 
     useEffect(()=> {
-        console.log(pokemonID, "id", month, "month", pokemonIDTens, "pokeIDtens");
         axios.get(`https://holidayapi.com/v1/holidays?pretty&key=${defaultKey}&country=US&year=2019&month=${month}`)
             .then(function (response) {
                 // handle success
@@ -228,7 +234,6 @@ function Home() {
 
 
     useEffect(()=> {
-        console.log(holidayData, "holiday data");
         if (holidayData.holidays) {
             if (pokemonIDTens === '00') {
                 let index = Math.floor(Math.random() * holidayData.holidays.length);
@@ -263,7 +268,7 @@ function Home() {
         <div className="Home">
 
             <div className="PokemonInfo" style={{backgroundColor: `rgba(${pokeRGB}, 0.3)`}}>
-                <h1>{pokemonName}</h1>
+                <h1>{pokemonName} <strong>#{pokemonID}</strong></h1>
                 <div className="stats">
                     <p>Height: {pokemonHeight} ft</p>
                     <p>Weight: {pokemonWeight} lbs</p>
@@ -286,9 +291,27 @@ function Home() {
 
                 <div className="PokePosts">
                     <h2>Recent status updates</h2>
-                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>today someone fed me this food called {foodName}! it was kind of nasty ngl, but i still ate it :/</p>
-                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>humans are so intriguing! did u know that {holiday} is a thing??? apparently it was celebrated on {holidayDate} last year, but i don't really understand it tbh...</p>
-                    <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>a wise pokemon once told me: "{advice}" ...i think about that a lot...</p>
+                    <div className="post">
+                        <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>today someone fed me this food called {foodName}! it was kinda nasty ngl, but i still ate it :/ i think it was the <strong>{dislikedFood}</strong> I didn't like</p>
+                        <div className="buttons">
+                            <button><FontAwesomeIcon icon={faThumbsUp}/> Like</button>
+                            <button><FontAwesomeIcon icon={faCommentAlt}/> Comment</button>
+                        </div>
+                    </div>
+                    <div className="post">
+                        <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>humans r so intriguing! did u know that {holiday} is a thing??? apparently it was celebrated on {holidayDate} last year, but i don't really understand it...</p>
+                        <div className="buttons">
+                            <button><FontAwesomeIcon icon={faThumbsUp}/> Like</button>
+                            <button><FontAwesomeIcon icon={faCommentAlt}/> Comment</button>
+                        </div>
+                    </div>
+                    <div className="post">
+                        <p style={{backgroundColor: `rgba(${pokeRGB}, 0.1)`}}>a wise pokemon once told me: "{advice}" ...i think about that a lot...</p>
+                        <div className="buttons">
+                            <button><FontAwesomeIcon icon={faThumbsUp}/> Like</button>
+                            <button><FontAwesomeIcon icon={faCommentAlt}/> Comment</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
